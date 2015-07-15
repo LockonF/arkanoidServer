@@ -21,6 +21,7 @@ Nota: El archivo TCPServer.h tiene otras clases, las cuales están comentadas.
 
 ##Cosas Pendientes
 
-..* En la clase game_room, se puede añadir la estructura tablero, para ir actualizandola con el tablero al momento de deserializar.
-..* En el método do_read_body() de la clase game_Session se puede hacer la implementación de la deserialización. Para esto se debería de agregar un método en la clase game_room para manipular la estructura.
-..* Probar que todo lo demás funcione correctamente
+⋅⋅* En la clase game_room, se puede añadir la estructura tablero, para ir actualizandola con el tablero al momento de deserializar.
+⋅⋅* En el método do_read_body() de la clase game_Session se puede hacer la implementación de la deserialización. Para esto se debería de agregar un método en la clase game_room para manipular la estructura.
+⋅⋅* Probar que todo lo demás funcione correctamente
+⋅⋅* Se puede implementar multihilo como se hace en el cliente

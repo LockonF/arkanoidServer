@@ -12,7 +12,8 @@ int main(int argc, char* argv[])
         TCPServer server(io_service,endpoint);
         std::cout<<"Started server"<<std::endl;
         
-        //io_service crea un nuevo hilo, por lo que las operaciones se vuelven asíncronas.
+        //io_service inicia. Se puede iniciar en un nuevo hilo con        std::thread t([&io_service](){ io_service.run(); });
+
         io_service.run();
     }
     catch (std::exception& e)
