@@ -1,25 +1,20 @@
-#include "TCPServer.h"
+#include "udp_server.h"
 #include <cstdlib>
 #include <iostream>
 
 int main(int argc, char* argv[])
 {
-    try
-    {
-        //Creamos el io_service que va a hacer el handling e inicializamos el servidor
-        boost::asio::io_service io_service;
-        tcp::endpoint endpoint(tcp::v4(), 7000);
-        TCPServer server(io_service,endpoint);
-        std::cout<<"Started server"<<std::endl;
+        try
+        {
+            //inicializamos el servidor y lo dejamos correr en su propio thread
+            boost::asio::io_service io_service;
+            udp_server server(io_service,7200);
+            io_service.run();
+        }
+        catch (std::exception& e)
+        {
+            std::cerr << e.what() << std::endl;
+        }
         
-        //io_service inicia. Se puede iniciar en un nuevo hilo con        std::thread t([&io_service](){ io_service.run(); });
-
-        io_service.run();
-    }
-    catch (std::exception& e)
-    {
-        std::cerr << "Exception: " << e.what() << "\n";
-    }
-    
-    return 0;
+        return 0;
 }
