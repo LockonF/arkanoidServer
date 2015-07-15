@@ -2,6 +2,8 @@
 
 Esta implementación del servidor lee, une y responde con broadcast a los mensajes de las conecciones que le envíen mensaje.
 
+Los archivos deben de estar en la misma carpeta, pero XCode los separó.
+
 ##Clases
 
 Las clases a utilizar son las siguientes
