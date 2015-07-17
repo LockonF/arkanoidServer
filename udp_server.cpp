@@ -20,6 +20,11 @@ std::string make_string(const char * data)
 //Funcion de prueba
 void udp_server::print()
 {
+    int size = participants_.size();
+    if(size==2)
+    {
+        
+    
     for(auto participant : participants_)
     {
         tablero.set_num_jugador(0);
@@ -30,6 +35,7 @@ void udp_server::print()
                                           boost::asio::placeholders::bytes_transferred));
 
     }
+    }
     timer_.expires_at(timer_.expires_at() + boost::posix_time::milliseconds(10));
     timer_.async_wait(boost::bind(&udp_server::print, this));
 
@@ -39,7 +45,11 @@ void udp_server::print()
 //Incializamos el servidor con el puerto, el servicio io y el endpoint
 udp_server::udp_server(boost::asio::io_service &io_service, int port): socket_(io_service, udp::endpoint(udp::v4(), port)), timer_(io_service, boost::posix_time::seconds(1))
 {
-    tablero.inicializar_juego();
+    if(participants_.size()==0)
+    {
+        tablero.inicializar_juego();
+    }
+
     timer_.async_wait(boost::bind(&udp_server::print, this));
     start_receive();
 }
@@ -71,10 +81,10 @@ void udp_server::handle_receive(const boost::system::error_code &error, std::siz
                     tablero.set_barra(deserialized_struct.barraJ1, 1);
                     break;
                 case 2:
-                    tablero.set_barra(deserialized_struct.barraJ2, 1);
+                    tablero.set_barra(deserialized_struct.barraJ2, 2);
                     break;
                 case 3:
-                    tablero.set_barra(deserialized_struct.barraJ3, 1);
+                    tablero.set_barra(deserialized_struct.barraJ3, 3);
                     break;
                 default:
                     break;
@@ -88,13 +98,14 @@ void udp_server::handle_receive(const boost::system::error_code &error, std::siz
                 //Mandamos a llamar a la función que fabrica el string
                 boost::shared_ptr<std::string> message(new std::string(assign_player()));
                 recv_buffer_.assign(0);
+                //Registramos el endpoint como participante
+                participants_.insert(remote_endpoint_);
+
                 socket_.async_send_to(boost::asio::buffer(*message), remote_endpoint_,
                                   boost::bind(&udp_server::handle_send, this, message,
                                               boost::asio::placeholders::error,
                                               boost::asio::placeholders::bytes_transferred));
             
-                //Registramos el endpoint como participante
-                participants_.insert(remote_endpoint_);
             
             }
         }
