@@ -17,7 +17,7 @@ std::string make_string(const char * data)
         return std::string("not accepted");
 }
 
-//Funcion de prueba
+//Funcion que manda la estructura, se inicia si el tamaño = 2 por el momento, falta cambiarlo a 3
 void udp_server::print()
 {
     int size = participants_.size();

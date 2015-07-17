@@ -12,4 +12,4 @@ Tiene una función asíncrona que hace que espere una cantidad n de tiempo para 
 
 ###Pendientes
 
-Falta implementar la serialización y deserialización de la tabla, además de los controles de la lógica dentro del servidor. 
+Faltan los controles de lógica del deserializador
